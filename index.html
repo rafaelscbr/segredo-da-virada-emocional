@@ -1134,27 +1134,14 @@
     var contadorInterval = null;
 
     function iniciarContador() {
-      var KEY = 'virada_contador_inicio';
       var DURACAO = 15 * 60; // 15 minutos em segundos
+      var inicio = Math.floor(Date.now() / 1000);
 
-      var agora = Math.floor(Date.now() / 1000);
-      var inicio = sessionStorage.getItem(KEY);
-      if (!inicio) {
-        inicio = agora;
-        sessionStorage.setItem(KEY, inicio);
-      } else {
-        inicio = parseInt(inicio, 10);
-      }
-
-      var display   = document.getElementById('contador-display');
-      var box       = document.getElementById('contador-box');
-      var precoVal  = document.getElementById('preco-valor');
-      var precoRis  = document.getElementById('preco-riscado');
-      var precoPor  = document.getElementById('preco-por');
+      var display = document.getElementById('contador-display');
+      var box     = document.getElementById('contador-box');
 
       function tick() {
-        var agora = Math.floor(Date.now() / 1000);
-        var restante = DURACAO - (agora - inicio);
+        var restante = DURACAO - (Math.floor(Date.now() / 1000) - inicio);
 
         if (restante <= 0) {
           clearInterval(contadorInterval);
@@ -1163,9 +1150,6 @@
           display.style.fontFamily = "'Inter', sans-serif";
           display.style.fontWeight = '400';
           box.style.background = 'rgba(80,20,20,0.4)';
-          precoRis.style.display  = 'none';
-          precoPor.style.display  = 'none';
-          precoVal.textContent = 'R$ 197,00';
           return;
         }
 
