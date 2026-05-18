@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Segredo da Virada Emocional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #2A0A13;
+      background-image: radial-gradient(ellipse at 50% 58%, #4A1525 0%, #2A0A13 55%, #1a0a10 100%);
+      background-attachment: fixed;
+      color: #F2E3C2;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      padding: 0 20px;
+    }
+
+    /* ── GOLDEN RULE ── */
+    .golden-rule {
+      width: 60px;
+      height: 1px;
+      background: #C9A961;
+      margin: 32px auto;
+    }
+
+    .golden-rule--sm {
+      width: 40px;
+      margin: 10px auto;
+    }
+
+    /* ── EDITORIAL L-CORNERS ── */
+    .card-corners {
+      position: relative;
+    }
+    .card-corners::before,
+    .card-corners::after {
+      content: '';
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-color: rgba(201,169,97,0.4);
+      border-style: solid;
+    }
+    .card-corners::before {
+      top: -1px;
+      left: -1px;
+      border-width: 1px 0 0 1px;
+    }
+    .card-corners::after {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 1px 1px 0;
+    }
+
+    /* ── BLOCKS ── */
+    #bloco-quiz,
+    #bloco-loading,
+    #bloco-oferta {
+      width: 100%;
+    }
+
+    #bloco-loading,
+    #bloco-oferta {
+      display: none;
+      opacity: 0;
+    }
+
+    #bloco-loading.visible,
+    #bloco-oferta.visible {
+      display: block;
+      animation: fadeIn 600ms ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ══════════════════════════════
+       BLOCO 1 — QUIZ
+    ══════════════════════════════ */
+
+    /* CAPA */
+    #capa {
+      padding: 56px 0 48px;
+      text-align: center;
+    }
+
+    .marca {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.42em;
+      color: #C9A961;
+      text-align: center;
+    }
+
+    .marca-linha {
+      width: 60px;
+      height: 1px;
+      background: #C9A961;
+      margin: 12px auto;
+    }
+
+    .capa-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 26px;
+      color: #F2E3C2;
+      line-height: 1.3;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .capa-subtexto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: rgba(242,227,194,0.85);
+      line-height: 1.7;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* BOTÃO CTA */
+    .btn-cta {
+      display: block;
+      width: 100%;
+      margin-top: 32px;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #C9A961 0%, #D9BE7E 100%);
+      color: #2A0A13;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      animation: pulse 2s ease-in-out infinite;
+      transition: filter 0.2s;
+    }
+
+    .btn-cta:hover {
+      filter: brightness(1.08);
+    }
+
+    @keyframes pulse {
+      0%   { transform: scale(1.00); }
+      50%  { transform: scale(1.02); }
+      100% { transform: scale(1.00); }
+    }
+
+    /* PERGUNTA */
+    #pergunta-wrapper {
+      display: none;
+      padding-bottom: 40px;
+    }
+
+    .quiz-card {
+      background: rgba(74, 21, 37, 0.5);
+      border: 1px solid rgba(201,169,97,0.2);
+      border-radius: 12px;
+      padding: 28px 20px;
+      margin-top: 32px;
+    }
+
+    .quiz-progress-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(242,227,194,0.5);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .quiz-progress-bar-wrap {
+      width: 100%;
+      height: 4px;
+      background: rgba(201,169,97,0.2);
+      border-radius: 2px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-bar-fill {
+      height: 100%;
+      background: #C9A961;
+      border-radius: 2px;
+      transition: width 400ms ease;
+    }
+
+    .quiz-question-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: #F2E3C2;
+      line-height: 1.35;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(42, 10, 19, 0.6);
+      border: 1px solid rgba(201,169,97,0.25);
+      border-radius: 8px;
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .quiz-option:hover {
+      border-color: rgba(201,169,97,0.7);
+      background: rgba(74,21,37,0.8);
+    }
+
+    .quiz-option.selected {
+      border-color: #C9A961;
+      background: rgba(201,169,97,0.15);
+    }
+
+    .quiz-option-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #F2E3C2;
+      line-height: 1.4;
+      flex: 1;
+      margin-right: 12px;
+    }
+
+    .quiz-check {
+      font-size: 14px;
+      color: #C9A961;
+      opacity: 0;
+      transition: opacity 300ms ease;
+      flex-shrink: 0;
+    }
+
+    .quiz-option.selected .quiz-check {
+      opacity: 1;
+    }
+
+    /* ══════════════════════════════
+       BLOCO 2 — LOADING
+    ══════════════════════════════ */
+    #bloco-loading {
+      min-height: 100vh;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    #bloco-loading.visible {
+      display: flex;
+    }
+
+    .loading-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,97,0.3) 0%, rgba(201,169,97,0.05) 100%);
+      border: 1px solid rgba(201,169,97,0.5);
+      margin: 0 auto 40px;
+      animation: pulsCircle 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulsCircle {
+      0%, 100% { transform: scale(1);   box-shadow: 0 0 0   0   rgba(201,169,97,0.2); }
+      50%       { transform: scale(1.1); box-shadow: 0 0 24px 8px rgba(201,169,97,0.15); }
+    }
+
+    .loading-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #F2E3C2;
+      min-height: 28px;
+      opacity: 0;
+      transition: opacity 600ms ease;
+      margin-bottom: 48px;
+    }
+
+    .loading-text.show { opacity: 1; }
+
+    .loading-bar-wrap {
+      width: 200px;
+      height: 3px;
+      background: rgba(201,169,97,0.2);
+      border-radius: 2px;
+      overflow: hidden;
+      margin: 0 auto 14px;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      background: #C9A961;
+      border-radius: 2px;
+      width: 0%;
+      transition: width ease;
+    }
+
+    .loading-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(242,227,194,0.6);
+      letter-spacing: 0.1em;
+    }
+
+    /* ══════════════════════════════
+       BLOCO 3 — OFERTA
+    ══════════════════════════════ */
+    #bloco-oferta {
+      padding-bottom: 0;
+    }
+
+    #bloco-oferta.visible {
+      display: block;
+    }
+
+    /* Topo da oferta — espaçamento */
+    .oferta-top {
+      padding-top: 48px;
+    }
+
+    /* Tags */
+    .tag {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #C9A961;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    /* Diagnóstico card */
+    .diagnostico-card {
+      background: rgba(74,21,37,0.6);
+      border: 1px solid rgba(201,169,97,0.35);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .diagnostico-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 22px;
+      color: #F2E3C2;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .diagnostico-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(242,227,194,0.85);
+      line-height: 1.7;
+    }
+
+    /* Agitação */
+    .agitacao {
+      padding: 0 4px;
+    }
+
+    .agitacao-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: #F2E3C2;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .agitacao-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: rgba(242,227,194,0.85);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .agitacao-destaque {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #C9A961;
+      border-left: 2px solid #C9A961;
+      padding-left: 16px;
+      margin: 20px 0;
+      line-height: 1.4;
+    }
+
+    .agitacao-dinamico {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: #F2E3C2;
+      background: rgba(74,21,37,0.5);
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 2px solid rgba(201,169,97,0.5);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    /* Prova social */
+    .prova-tag {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .depo-card {
+      background: rgba(42,10,19,0.7);
+      border: 1px solid rgba(201,169,97,0.2);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .depo-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(242,227,194,0.9);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .depo-nome {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      color: #C9A961;
+    }
+
+    .depo-detalhe {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(242,227,194,0.5);
+      margin-top: 2px;
+    }
+
+    .numero-prova {
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .numero-prova-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 36px;
+      color: #C9A961;
+      display: block;
+    }
+
+    .numero-prova-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(242,227,194,0.6);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* Solução */
+    .solucao-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 28px;
+      color: #F2E3C2;
+      text-align: center;
+      line-height: 1.3;
+      margin-top: 4px;
+    }
+
+    .solucao-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: rgba(242,227,194,0.85);
+      line-height: 1.8;
+      margin-top: 16px;
+    }
+
+    .solucao-destaque {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: #C9A961;
+      text-align: center;
+      margin: 24px 0;
+      line-height: 1.4;
+    }
+
+    /* Produto card */
+    .produto-card {
+      background: rgba(74,21,37,0.5);
+      border: 1px solid rgba(201,169,97,0.3);
+      border-radius: 8px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .produto-marca {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.42em;
+      color: #C9A961;
+      text-align: center;
+    }
+
+    .produto-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 30px;
+      color: #F2E3C2;
+      text-align: center;
+      line-height: 1.2;
+      margin-top: 16px;
+    }
+
+    .produto-slogan {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.38em;
+      color: rgba(242,227,194,0.6);
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .produto-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(242,227,194,0.88);
+      line-height: 1.7;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Inclui cards */
+    .inclui-tag {
+      margin-bottom: 16px;
+    }
+
+    .inclui-card {
+      background: rgba(42,10,19,0.6);
+      border: 1px solid rgba(201,169,97,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+
+    .inclui-tag-pequena {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: #C9A961;
+      margin-bottom: 8px;
+    }
+
+    .inclui-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #F2E3C2;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .inclui-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(242,227,194,0.88);
+      line-height: 1.6;
+    }
+
+    /* Urgência */
+    .urgencia-box {
+      background: rgba(201,169,97,0.08);
+      border: 1px solid rgba(201,169,97,0.4);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .urgencia-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #C9A961;
+      margin-bottom: 14px;
+    }
+
+    .urgencia-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(242,227,194,0.85);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .urgencia-dinamico {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: #F2E3C2;
+      border-left: 2px solid #C9A961;
+      padding-left: 14px;
+      line-height: 1.6;
+    }
+
+    /* Preço */
+    .preco-card {
+      background: rgba(74,21,37,0.6);
+      border: 1px solid rgba(201,169,97,0.35);
+      border-radius: 8px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .preco-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(242,227,194,0.5);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .preco-riscado {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: rgba(242,227,194,0.4);
+      text-decoration: line-through;
+    }
+
+    .preco-por {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(242,227,194,0.6);
+      margin-top: 4px;
+    }
+
+    .preco-valor {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 52px;
+      color: #C9A961;
+      line-height: 1;
+      margin-top: 6px;
+    }
+
+    .preco-condicoes {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(242,227,194,0.5);
+      margin-top: 4px;
+    }
+
+    /* Botão checkout */
+    .btn-checkout {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #C9A961 0%, #D9BE7E 100%);
+      color: #2A0A13;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 4px 32px rgba(201,169,97,0.4);
+      transition: filter 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-checkout:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 6px 40px rgba(201,169,97,0.6);
+    }
+
+    .btn-seguro {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      color: rgba(242,227,194,0.5);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Garantia */
+    .garantia-card {
+      background: rgba(42,10,19,0.5);
+      border: 1px solid rgba(201,169,97,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+
+    .garantia-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 18px;
+      color: #C9A961;
+      margin-bottom: 12px;
+    }
+
+    .garantia-texto {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: rgba(242,227,194,0.85);
+      line-height: 1.6;
+    }
+
+    .rodape {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(242,227,194,0.45);
+      text-align: center;
+      margin-top: 24px;
+      padding-bottom: 40px;
+    }
+
+    /* Seções da oferta */
+    .oferta-section {
+      margin-bottom: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ══════════════════════════════════════
+         BLOCO 1 — QUIZ
+    ══════════════════════════════════════ -->
+    <div id="bloco-quiz">
+
+      <!-- CAPA -->
+      <div id="capa">
+        <div class="marca">VIRADA EMOCIONAL</div>
+        <div class="marca-linha"></div>
+        <h1 class="capa-headline">
+          "Antes de te revelar<br>
+          O Segredo da Virada Emocional..."
+        </h1>
+        <p class="capa-subtexto">
+          Preciso entender a sua situação primeiro.<br><br>
+          Cada término tem um padrão diferente. Dependendo das suas respostas,
+          consigo identificar exatamente o que está bloqueando a saudade dele —
+          e o que pode desbloqueá-la.<br><br>
+          Mas só consigo te ajudar se você for honesta.
+        </p>
+        <button class="btn-cta" onclick="iniciarQuiz()">
+          Quero descobrir se ainda tenho chance →
+        </button>
+      </div>
+
+      <!-- PERGUNTA -->
+      <div id="pergunta-wrapper">
+        <div class="quiz-card card-corners" id="quiz-card">
+          <div class="quiz-progress-label" id="progress-label">PERGUNTA 1 DE 7</div>
+          <div class="quiz-progress-bar-wrap">
+            <div class="quiz-progress-bar-fill" id="progress-fill"></div>
+          </div>
+          <div class="quiz-question-text" id="question-text"></div>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /bloco-quiz -->
+
+    <!-- ══════════════════════════════════════
+         BLOCO 2 — LOADING
+    ══════════════════════════════════════ -->
+    <div id="bloco-loading">
+      <div class="loading-circle"></div>
+      <div class="loading-text" id="loading-text">Analisando seu perfil emocional...</div>
+      <div>
+        <div class="loading-bar-wrap">
+          <div class="loading-bar-fill" id="loading-fill"></div>
+        </div>
+        <div class="loading-label">CRIANDO SEU PROTOCOLO PERSONALIZADO</div>
+      </div>
+    </div>
+    <!-- /bloco-loading -->
+
+    <!-- ══════════════════════════════════════
+         BLOCO 3 — OFERTA
+    ══════════════════════════════════════ -->
+    <div id="bloco-oferta">
+      <div class="oferta-top">
+
+        <!-- PARTE 1 — DIAGNÓSTICO -->
+        <div class="oferta-section">
+          <div class="tag">SEU DIAGNÓSTICO</div>
+          <div class="diagnostico-card card-corners">
+            <div class="diagnostico-headline" id="diagnostico-headline">
+              Seu perfil indica: existe uma janela aberta — e ela está se fechando.
+            </div>
+            <div class="diagnostico-texto" id="diagnostico-texto"></div>
+          </div>
+        </div>
+
+        <!-- PARTE 3 — PROVA SOCIAL -->
+        <div class="oferta-section">
+          <div class="golden-rule"></div>
+          <div class="tag prova-tag">O que mulheres que ajudei estão vivendo hoje</div>
+
+          <div id="depoimentos-container"></div>
+
+          <div class="numero-prova">
+            <span class="numero-prova-big">+2.400</span>
+            <div class="numero-prova-label">MULHERES JÁ APLICARAM ESTE PROTOCOLO</div>
+          </div>
+        </div>
+
+        <!-- PARTE 4 — SOLUÇÃO -->
+        <div class="oferta-section">
+          <div class="golden-rule"></div>
+          <div class="tag">A SOLUÇÃO</div>
+          <h2 class="solucao-headline">
+            "O que você precisa não é dele de volta.
+            É do que faz ele perceber que te perdeu."
+          </h2>
+          <p class="solucao-texto">
+            Existe uma diferença enorme entre tentar reconquistar um homem
+            e despertar nele o que ele sente quando percebe que pode te perder.
+          </p>
+          <p class="solucao-texto">
+            A primeira abordagem o afasta.<br>
+            A segunda ativa algo que ele não consegue controlar.
+          </p>
+          <div class="solucao-destaque">
+            "O Gatilho da Saudade não é manipulação.
+            É a psicologia de como o desejo masculino realmente funciona —
+            e por que tudo que você fez até agora age contra ele."
+          </div>
+          <p class="solucao-texto">
+            Este protocolo de 7 dias foi criado para mulheres exatamente
+            na situação que você descreveu nas suas respostas.
+          </p>
+          <p class="solucao-texto">
+            Não é teoria. É um mapa diário — com o que fazer,
+            o que parar de fazer, e como se posicionar emocionalmente
+            para que ele sinta sua ausência de um jeito que nenhuma presença consegue provocar.
+          </p>
+        </div>
+
+        <!-- PARTE 5 — PRODUTO -->
+        <div class="oferta-section">
+          <div class="golden-rule"></div>
+          <div class="produto-card card-corners">
+            <div class="produto-marca">VIRADA EMOCIONAL</div>
+            <div class="golden-rule golden-rule--sm"></div>
+            <div class="produto-titulo">
+              "O Segredo da<br>Virada Emocional"
+            </div>
+            <div class="produto-slogan">RECOMEÇO · CLAREZA · PRESENÇA</div>
+            <p class="produto-desc">
+              O Protocolo dos 7 Dias que transforma ansiedade emocional em presença magnética —
+              e desperta nele a saudade que nenhuma mensagem jamais despertaria.
+            </p>
+          </div>
+        </div>
+
+        <!-- PARTE 6 — O QUE ESTÁ INCLUÍDO -->
+        <div class="oferta-section">
+          <div class="tag inclui-tag">O QUE VOCÊ RECEBE</div>
+
+          <div class="inclui-card card-corners">
+            <div class="inclui-tag-pequena">PRODUTO PRINCIPAL</div>
+            <div class="inclui-titulo">Método Virada Emocional — O Protocolo dos 7 Dias</div>
+            <p class="inclui-texto">
+              Um guia diário que mostra exatamente o que fazer e o que parar de fazer
+              em cada etapa do afastamento — para que a sua ausência seja mais poderosa
+              do que qualquer presença ansiosa jamais seria.
+            </p>
+          </div>
+
+          <div class="inclui-card card-corners">
+            <div class="inclui-tag-pequena">BÔNUS 1</div>
+            <div class="inclui-titulo">As 7 Mensagens que Despertam a Saudade</div>
+            <p class="inclui-texto">
+              Scripts prontos para cada momento crítico — o que dizer quando ele entrar em contato,
+              o que enviar quando o silêncio for longo demais, e o que nunca dizer
+              quando você sentir que a janela está se fechando.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- PARTE 7 — URGÊNCIA -->
+        <div class="oferta-section">
+          <div class="urgencia-box">
+            <div class="urgencia-headline">Por que o momento é agora</div>
+            <p class="urgencia-texto">
+              Existe uma janela emocional após um término.
+            </p>
+            <p class="urgencia-texto">
+              Ela não fica aberta para sempre.
+            </p>
+            <p class="urgencia-texto">
+              Quanto mais tempo passa sem uma mudança real no padrão emocional,
+              mais ele consolida a narrativa de que tomar distância foi a decisão certa.
+            </p>
+            <p class="urgencia-texto">
+              Você não precisa de semanas para ver resultado.<br>
+              Precisa de 7 dias aplicando da forma certa.
+            </p>
+          </div>
+        </div>
+
+        <!-- PARTE 8 — PREÇO -->
+        <div class="oferta-section">
+          <div class="golden-rule"></div>
+          <div id="contador-box" style="background:rgba(201,169,97,0.08);border:1px solid rgba(201,169,97,0.5);border-radius:8px;padding:16px 20px;text-align:center;margin-bottom:16px;">
+            <div style="font-family:'Inter',sans-serif;font-weight:300;font-size:11px;color:rgba(242,227,194,0.7);letter-spacing:0.12em;margin-bottom:8px;">ESTA OFERTA EXPIRA EM</div>
+            <div id="contador-display" style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:42px;color:#C9A961;line-height:1;">15:00</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:rgba(242,227,194,0.9);letter-spacing:0.02em;margin-top:10px;">Após esse tempo o valor volta para <strong style="color:#C9A961;font-weight:600;">R$ 197,00</strong></div>
+          </div>
+          <div class="preco-card" id="card-preco">
+            <div class="preco-label">ACESSO COMPLETO — ENTREGA IMEDIATA</div>
+            <div class="preco-riscado" id="preco-riscado">De R$ 197,00</div>
+            <div class="preco-por" id="preco-por">por apenas</div>
+            <div class="preco-valor" id="preco-valor">R$ 29,90</div>
+            <div class="preco-condicoes">pagamento único · acesso imediato · apenas hoje</div>
+            <!-- SUBSTITUIR: URL do checkout Kiwify -->
+            <a href="#" id="checkout-btn" class="btn-checkout">
+              QUERO COMEÇAR MINHA VIRADA AGORA
+            </a>
+            <div class="btn-seguro">🔒 Pagamento 100% seguro · Acesso imediato</div>
+          </div>
+        </div>
+
+        <!-- PARTE 9 — GARANTIA -->
+        <div class="oferta-section">
+          <div class="garantia-card">
+            <div class="garantia-titulo">Garantia incondicional de 7 dias</div>
+            <p class="garantia-texto">
+              Se em 7 dias você sentir que não valeu, basta enviar um e-mail
+              e devolvemos cada centavo. Sem perguntas, sem burocracia.
+              O risco é zero. A decisão é sua.
+            </p>
+          </div>
+          <div class="rodape">
+            Virada Emocional · Todos os direitos reservados
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /bloco-oferta -->
+
+  </div><!-- /page-wrapper -->
+
+  <script>
+    /* ══════════════════════════════════
+       ESTADO DO QUIZ
+    ══════════════════════════════════ */
+    var answers = {};
+    var currentQuestion = 0;
+
+    var questions = [
+      {
+        text: "Quando foi o término entre vocês?",
+        options: [
+          "Faz menos de 1 semana — ainda estou em choque",
+          "Entre 1 e 4 semanas — a dor ainda está intensa",
+          "Entre 1 e 3 meses — mas parece que foi ontem",
+          "Mais de 3 meses — e ainda não consigo desapegar"
+        ]
+      },
+      {
+        text: "Como está o contato entre vocês hoje?",
+        options: [
+          "Ele responde, mas é frio e distante",
+          "Ele visualiza e não responde",
+          "Ele me bloqueou em tudo",
+          "Conversamos às vezes, mas só por educação"
+        ]
+      },
+      {
+        text: "O que você mais tem feito desde o término?",
+        options: [
+          "Fico checando o WhatsApp e o Instagram dele sem parar",
+          "Já mandei mensagem várias vezes tentando reconquistar",
+          "Fico analisando tudo que deu errado, tentando entender",
+          "Finjo que estou bem, mas por dentro estou destruída"
+        ]
+      },
+      {
+        text: "O que mais dói em você desde o término?",
+        options: [
+          "Imaginar ele feliz e seguindo a vida sem sentir minha falta",
+          "Pensar que ele pode estar ficando com outra",
+          "Sentir que fui descartada e não valei o suficiente",
+          "Não saber se ainda existe alguma chance"
+        ]
+      },
+      {
+        text: "Se ele se apaixonasse por outra agora, o que aconteceria com você?",
+        options: [
+          "Eu perderia completamente o chão",
+          "Ficaria destruída, mas tentaria seguir em frente",
+          "Tentaria agir de qualquer jeito para não perdê-lo de vez",
+          "Fingiria que não me importa, mas morreria por dentro"
+        ]
+      },
+      {
+        text: "Quanto tempo você acredita que ainda tem para agir?",
+        options: [
+          "Poucos dias — sinto que ele já está esfriando de vez",
+          "Algumas semanas — mas preciso agir logo",
+          "Não sei, e isso me assusta mais do que qualquer coisa",
+          "Acho que ainda existe uma janela — mas não sei como usá-la"
+        ]
+      },
+      {
+        text: "Se eu te mostrasse um método de 7 dias para despertar a saudade nele — sem implorar, sem textão, sem se humilhar — você aplicaria?",
+        options: [
+          "Sim — quero começar hoje mesmo",
+          "Sim — mas quero entender como funciona primeiro",
+          "Sim — desde que seja algo que eu consiga fazer do meu jeito"
+        ]
+      }
+    ];
+
+    /* ══════════════════════════════════
+       PERSONALIZAÇÃO COM BASE NAS RESPOSTAS
+    ══════════════════════════════════ */
+    function getPersonalizedHook() {
+      if (answers[2] === 2) {
+        return "Seu perfil indica: bloqueio ativo — e isso não significa o que você pensa.";
+      } else if (answers[2] === 1) {
+        return "Seu perfil indica: ele ainda te observa — mas algo está impedindo ele de agir.";
+      }
+      return "Seu perfil indica: existe uma janela aberta — e ela está se fechando.";
+    }
+
+    function buildDiagnostico() {
+      var fragA = [
+        "Ele ainda responde — mas com frieza. Isso não é indiferença. É distância emocional construída por um padrão que está sendo repetido.",
+        "Ele visualiza e não responde. Esse silêncio não é esquecimento — é um sinal de que algo está travando a reconexão.",
+        "Mesmo bloqueada, existe um padrão emocional que pode ser revertido. O bloqueio é uma reação — não uma decisão final.",
+        "Ele fala por educação. Isso significa que a conexão ainda existe — mas está sendo contida por algo que ele mesmo não sabe nomear."
+      ];
+      var fragB = [
+        "Sua maior dor é imaginar ele seguindo em frente sem sentir sua falta. Esse é exatamente o ponto que o protocolo trabalha primeiro.",
+        "O medo de ele estar com outra é o gatilho mais urgente. E é justamente nesse momento que agir da forma errada afasta de vez.",
+        "Sentir que não valeu o suficiente não é a realidade — é o resultado de um ciclo emocional que pode ser quebrado em dias.",
+        "A incerteza sobre se existe chance é o que mais paralisa. Com base no seu perfil, a janela ainda está aberta."
+      ];
+      var a = fragA[answers[2] !== undefined ? answers[2] : 0];
+      var b = fragB[answers[4] !== undefined ? answers[4] : 3];
+      return a + '\n\n' + b;
+    }
+
+    function buildDepoimentos() {
+      var depoP2 = [
+        { texto: '"Ele respondia, mas era tão frio que parecia outra pessoa. Aprendi que essa frieza tem uma causa específica — e que existe uma forma de desfazê-la sem forçar nada. Em 9 dias ele voltou a falar comigo de verdade."', nome: '— Ana Paula, 31 anos' },
+        { texto: '"Ficava me destruindo vendo que ele visualizava e não respondia. Quando entendi o que esse silêncio significa de verdade, parei de agir pela ansiedade. Em uma semana ele mandou mensagem por conta própria."', nome: '— Mariana, 27 anos' },
+        { texto: '"Estava bloqueada em tudo. Achei que era o fim. O protocolo me mostrou que o bloqueio é uma reação emocional — não uma decisão racional. Hoje estamos juntos de novo."', nome: '— Fernanda, 34 anos' },
+        { texto: '"Ele só falava por educação. Cada resposta seca me quebrava por dentro. Quando mudei o padrão emocional, em dias a conversa voltou a ser real."', nome: '— Camila, 29 anos' }
+      ];
+      var depoP4 = [
+        { texto: '"Não conseguia parar de imaginar ele feliz sem mim. Isso me fazia agir de formas que eu me arrependia. O protocolo me ensinou a transformar essa dor em presença — e ele sentiu minha falta sem eu precisar fazer nada óbvio."', nome: '— Letícia, 33 anos' },
+        { texto: '"O medo de ele estar com outra me consumia. Aprendi que tentar reconquistar com esse medo por dentro é o que mais afasta. Quando mudei isso, ele voltou a me procurar."', nome: '— Júlia, 28 anos' },
+        { texto: '"Sentia que não tinha sido suficiente. Que qualquer outra mulher seria melhor. O protocolo me devolveu algo que eu tinha perdido — e ele percebeu isso antes de eu dizer qualquer coisa."', nome: '— Raquel, 30 anos' },
+        { texto: '"A incerteza era o pior. Não saber se ainda tinha chance me paralisava. Quando aprendi a agir sem precisar de confirmação dele, tudo mudou. Ele voltou a se aproximar naturalmente."', nome: '— Beatriz, 26 anos' }
+      ];
+
+      function makeCard(d) {
+        return '<div class="depo-card"><p class="depo-texto">' + d.texto + '</p><div class="depo-nome">' + d.nome + '</div></div>';
+      }
+
+      var idxP2 = answers[2] !== undefined ? answers[2] : 0;
+      var idxP4 = answers[4] !== undefined ? answers[4] : 3;
+      return makeCard(depoP2[idxP2]) + makeCard(depoP4[idxP4]);
+    }
+
+    var contadorInterval = null;
+
+    function iniciarContador() {
+      var KEY = 'virada_contador_inicio';
+      var DURACAO = 15 * 60; // 15 minutos em segundos
+
+      var agora = Math.floor(Date.now() / 1000);
+      var inicio = sessionStorage.getItem(KEY);
+      if (!inicio) {
+        inicio = agora;
+        sessionStorage.setItem(KEY, inicio);
+      } else {
+        inicio = parseInt(inicio, 10);
+      }
+
+      var display   = document.getElementById('contador-display');
+      var box       = document.getElementById('contador-box');
+      var precoVal  = document.getElementById('preco-valor');
+      var precoRis  = document.getElementById('preco-riscado');
+      var precoPor  = document.getElementById('preco-por');
+
+      function tick() {
+        var agora = Math.floor(Date.now() / 1000);
+        var restante = DURACAO - (agora - inicio);
+
+        if (restante <= 0) {
+          clearInterval(contadorInterval);
+          display.textContent = 'Oferta encerrada — valor atualizado';
+          display.style.fontSize = '16px';
+          display.style.fontFamily = "'Inter', sans-serif";
+          display.style.fontWeight = '400';
+          box.style.background = 'rgba(80,20,20,0.4)';
+          precoRis.style.display  = 'none';
+          precoPor.style.display  = 'none';
+          precoVal.textContent = 'R$ 197,00';
+          return;
+        }
+
+        var min = Math.floor(restante / 60);
+        var seg = restante % 60;
+        display.textContent = (min < 10 ? '0' : '') + min + ':' + (seg < 10 ? '0' : '') + seg;
+      }
+
+      tick();
+      contadorInterval = setInterval(tick, 1000);
+    }
+
+    /* ══════════════════════════════════
+       FLUXO DO QUIZ
+    ══════════════════════════════════ */
+    function iniciarQuiz() {
+      document.getElementById('capa').style.display = 'none';
+      document.getElementById('pergunta-wrapper').style.display = 'block';
+      renderQuestion(0);
+    }
+
+    function renderQuestion(index) {
+      currentQuestion = index;
+      var q = questions[index];
+      var total = questions.length;
+      var pct = (index / total) * 100;
+
+      document.getElementById('progress-label').textContent =
+        'PERGUNTA ' + (index + 1) + ' DE ' + total;
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('question-text').textContent = q.text;
+
+      var optionsEl = document.getElementById('quiz-options');
+      optionsEl.innerHTML = '';
+
+      q.options.forEach(function(opt, i) {
+        var div = document.createElement('div');
+        div.className = 'quiz-option';
+        div.setAttribute('data-index', i);
+        div.innerHTML =
+          '<span class="quiz-option-text">' + opt + '</span>' +
+          '<span class="quiz-check">✓</span>';
+        div.addEventListener('click', function() { selectOption(index, i, div); });
+        optionsEl.appendChild(div);
+      });
+    }
+
+    function selectOption(questionIndex, optionIndex, el) {
+      // Evitar duplo clique
+      var opts = document.querySelectorAll('.quiz-option');
+      opts.forEach(function(o) { o.style.pointerEvents = 'none'; });
+
+      el.classList.add('selected');
+      answers[questionIndex] = optionIndex;
+
+      setTimeout(function() {
+        var next = questionIndex + 1;
+        if (next < questions.length) {
+          renderQuestion(next);
+        } else {
+          mostrarLoading();
+        }
+      }, 500);
+    }
+
+    /* ══════════════════════════════════
+       LOADING
+    ══════════════════════════════════ */
+    function mostrarLoading() {
+      document.getElementById('bloco-quiz').style.display = 'none';
+
+      var bl = document.getElementById('bloco-loading');
+      bl.style.display = 'flex';
+      bl.style.opacity = '0';
+      setTimeout(function() {
+        bl.style.transition = 'opacity 600ms ease';
+        bl.style.opacity = '1';
+      }, 20);
+
+      var texts = [
+        'Analisando seu perfil emocional...',
+        'Identificando o padrão de afastamento...',
+        'Calculando sua janela de reconexão...',
+        'Preparando seu protocolo personalizado...'
+      ];
+
+      var loadingTextEl = document.getElementById('loading-text');
+      var loadingFill   = document.getElementById('loading-fill');
+
+      // Sequência de textos
+      var textIndex = 0;
+      function showNextText() {
+        loadingTextEl.classList.remove('show');
+        setTimeout(function() {
+          loadingTextEl.textContent = texts[textIndex];
+          loadingTextEl.classList.add('show');
+          textIndex++;
+          if (textIndex < texts.length) {
+            setTimeout(showNextText, 1100);
+          }
+        }, 300);
+      }
+      showNextText();
+
+      // Barra de progresso em três etapas
+      function animBar(from, to, durationMs, cb) {
+        var start = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var elapsed = ts - start;
+          var progress = Math.min(elapsed / durationMs, 1);
+          var val = from + (to - from) * progress;
+          loadingFill.style.width = val + '%';
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else if (cb) {
+            cb();
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      animBar(0, 85, 2500, function() {
+        animBar(85, 95, 1200, function() {
+          animBar(95, 100, 1500, function() {
+            setTimeout(mostrarOferta, 400);
+          });
+        });
+      });
+    }
+
+    /* ══════════════════════════════════
+       OFERTA
+    ══════════════════════════════════ */
+    function mostrarOferta() {
+      // Preenche textos dinâmicos
+      document.getElementById('diagnostico-headline').textContent = getPersonalizedHook();
+
+      var diagTexto = document.getElementById('diagnostico-texto');
+      diagTexto.innerHTML = '';
+      buildDiagnostico().split('\n\n').forEach(function(para) {
+        var p = document.createElement('p');
+        p.style.marginBottom = '10px';
+        p.textContent = para;
+        diagTexto.appendChild(p);
+      });
+
+      document.getElementById('depoimentos-container').innerHTML = buildDepoimentos();
+
+      // Esconde loading
+      var bl = document.getElementById('bloco-loading');
+      bl.style.transition = 'opacity 600ms ease';
+      bl.style.opacity = '0';
+      setTimeout(function() {
+        bl.style.display = 'none';
+
+        // Mostra oferta
+        var bo = document.getElementById('bloco-oferta');
+        bo.style.display = 'block';
+        bo.style.opacity = '0';
+        setTimeout(function() {
+          bo.style.transition = 'opacity 600ms ease';
+          bo.style.opacity = '1';
+          iniciarContador();
+        }, 20);
+      }, 620);
+    }
+  </script>
+</body>
+</html>
