@@ -779,6 +779,23 @@
       margin-bottom: 28px;
     }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1268340051956694');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1268340051956694&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
   <div class="page-wrapper">
@@ -978,7 +995,7 @@
             <div class="preco-por" id="preco-por">por apenas</div>
             <div class="preco-valor" id="preco-valor">R$ 29,90</div>
             <div class="preco-condicoes">pagamento único · acesso imediato · apenas hoje</div>
-            <a href="https://pay.kiwify.com.br/KH34FFc" id="checkout-btn" class="btn-checkout" target="_blank" rel="noopener">
+            <a href="https://pay.kiwify.com.br/KH34FFc" id="checkout-btn" class="btn-checkout" target="_blank" rel="noopener" onclick="fbq('track', 'InitiateCheckout')">
               QUERO COMEÇAR MINHA VIRADA AGORA
             </a>
             <div class="btn-seguro">🔒 Pagamento 100% seguro · Acesso imediato</div>
