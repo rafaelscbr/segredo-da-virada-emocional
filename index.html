@@ -843,7 +843,7 @@ src="https://www.facebook.com/tr?id=1268340051956694&ev=PageView&noscript=1"
           Antes de personalizar seu guia prático, eu preciso entender a sua situação, cada término tem um padrão diferente. Com base nas suas respostas te entrego o guia personalizado, vamos começar?
         </p>
         <button class="btn-cta" onclick="iniciarQuiz()">
-          Quero descobrir se ainda tenho chance →
+          Quero descobrir o que está bloqueando a saudade dele →
         </button>
       </div>
 
@@ -964,15 +964,13 @@ src="https://www.facebook.com/tr?id=1268340051956694&ev=PageView&noscript=1"
             <div class="inclui-tag-pequena">PRODUTO PRINCIPAL</div>
             <div class="inclui-titulo">Método Virada Emocional: O Guia Prático dos 7 Dias</div>
             <p class="inclui-texto">
-              Um guia diário que mostra exatamente o que fazer e o que parar de fazer
-              em cada etapa do afastamento, para que a sua ausência seja mais poderosa
-              do que qualquer presença ansiosa jamais seria.
+              Um mapa diário com o que fazer e o que parar de fazer para que sua ausência desperte nele o que nenhuma mensagem conseguiria.
             </p>
           </div>
 
           <div class="inclui-card card-corners">
             <div class="inclui-tag-pequena">BÔNUS 1</div>
-            <div class="inclui-titulo">As 7 Mensagens que Despertam a Saudade</div>
+            <div class="inclui-titulo">✅ As 7 Mensagens que Despertam a Saudade</div>
             <p class="inclui-texto">
               Scripts prontos para cada momento crítico: o que dizer quando ele entrar em contato,
               o que enviar quando o silêncio for longo demais, e o que nunca dizer
@@ -987,14 +985,7 @@ src="https://www.facebook.com/tr?id=1268340051956694&ev=PageView&noscript=1"
           <div class="urgencia-box">
             <div class="urgencia-headline">Por que o momento é agora</div>
             <p class="urgencia-texto">
-              Existe uma janela emocional após um término.
-            </p>
-            <p class="urgencia-texto">
-              Ela não fica aberta para sempre.
-            </p>
-            <p class="urgencia-texto">
-              Quanto mais tempo passa sem uma mudança real no padrão emocional,
-              mais ele consolida a narrativa de que tomar distância foi a decisão certa.
+              Cada dia que passa sem mudança de padrão, ele reforça internamente que se distanciar foi a decisão certa. Não são semanas. São dias.
             </p>
             <p class="urgencia-texto">
               Você não precisa de semanas para ver resultado.<br>
@@ -1111,8 +1102,7 @@ src="https://www.facebook.com/tr?id=1268340051956694&ev=PageView&noscript=1"
         text: "Se eu te mostrasse um método de 7 dias para despertar a saudade nele, sem implorar, sem textão, sem se humilhar, você aplicaria?",
         options: [
           "Sim, quero começar hoje mesmo",
-          "Sim, mas quero entender como funciona primeiro",
-          "Sim, desde que seja algo que eu consiga fazer do meu jeito"
+          "Sim, mas quero entender como funciona primeiro"
         ]
       }
     ];
@@ -1160,14 +1150,21 @@ src="https://www.facebook.com/tr?id=1268340051956694&ev=PageView&noscript=1"
         { texto: '"Sentia que não tinha sido suficiente. Que qualquer outra mulher seria melhor. O guia prático me devolveu algo que eu tinha perdido, e ele percebeu isso antes de eu dizer qualquer coisa."', nome: 'Raquel, 30 anos' },
         { texto: '"A incerteza era o pior. Não saber se ainda tinha chance me paralisava. Quando aprendi a agir sem precisar de confirmação dele, tudo mudou. Ele voltou a se aproximar naturalmente."', nome: 'Beatriz, 26 anos' }
       ];
+      var depoP3 = [
+        { texto: '"Ficava imaginando ele sorrindo, seguindo a vida, e eu aqui destruída. Cada foto me fazia querer mandar mensagem na hora. Quando aprendi a transformar essa dor em silêncio estratégico, ele veio me perguntar como eu estava. Sozinho."', nome: 'Carolina, 30 anos' },
+        { texto: '"O pensamento de ele estar com outra me tirava o sono e me fazia agir de formas que eu sabia que afastavam. Quando parei de agir pelo medo, ele voltou a me procurar em menos de duas semanas."', nome: 'Isabela, 29 anos' },
+        { texto: '"Sentia que tinha sido descartada, que não era suficiente. Ficava tentando provar meu valor pra ele. O guia me mostrou que quanto menos eu tentei provar, mais ele quis me recuperar."', nome: 'Tatiana, 32 anos' },
+        { texto: '"Não saber se ainda tinha chance era o que mais me paralisava. Vivia em função de uma resposta que ele nunca dava. Quando mudei o foco — de mim pra ele — tudo mudou. Ele voltou."', nome: 'Priscila, 27 anos' }
+      ];
 
       function makeCard(d) {
         return '<div class="depo-card"><p class="depo-texto">' + d.texto + '</p><div class="depo-nome">' + d.nome + '</div></div>';
       }
 
       var idxP2 = answers[2] !== undefined ? answers[2] : 0;
+      var idxP3 = answers[3] !== undefined ? answers[3] : 0;
       var idxP4 = answers[4] !== undefined ? answers[4] : 3;
-      return makeCard(depoP2[idxP2]) + makeCard(depoP4[idxP4]);
+      return makeCard(depoP2[idxP2]) + makeCard(depoP3[idxP3]) + makeCard(depoP4[idxP4]);
     }
 
     var contadorInterval = null;
